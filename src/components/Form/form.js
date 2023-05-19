@@ -4,6 +4,7 @@ import { FormEl, LabelEl, InputContact, InputSubmit } from './Form.styled';
 const ContactForm = ({ onSubmit }) => {
   const [name, setIsName] = useState('');
   const [number, setIsNumber] = useState('');
+   const [shouldReset, setIsShouldReset] = useState(false);
 
   const handleInputСhange = event => {
     const { name, value } = event.target;
@@ -13,16 +14,19 @@ const ContactForm = ({ onSubmit }) => {
       setIsNumber(value);
     }
   };
-  
+
   useEffect(() => {
-    onSubmit({ name, number });
-  }, [onSubmit, name, number]);
+    if (shouldReset) {
+      onSubmit({ name, number });
+      reset();
+      setIsShouldReset(false);
+    }
+  }, [onSubmit, name, number, shouldReset]);
 
   const handleSubmit = event => {
     event.preventDefault();
 
-    onSubmit({ name, number });
-    reset();
+    setIsShouldReset(true);
   };
 
   const reset = () => {
