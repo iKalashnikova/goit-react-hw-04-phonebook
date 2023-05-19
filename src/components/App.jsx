@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { nanoid } from 'nanoid';
+import PropTypes from 'prop-types';
 import ContactForm from './Form/form';
 import { ContactList } from './Contact/Contact';
 import { Filter } from './Filter/Filter';
@@ -32,9 +33,9 @@ const App = () => {
         name: newContact.name,
         number: newContact.number,
       };
-      setIsContacts(prevState =>[...prevState, contact])
-      };
+      setIsContacts(prevState => [...prevState, contact]);
     }
+  };
 
   const handleDeleteContact = id => {
     const updatedContacts = contacts.filter(contact => contact.id !== id);
@@ -69,7 +70,7 @@ const App = () => {
       <div>
         <Title>Phonebook</Title>
 
-        <ContactForm onSubmit={(data) => handleAddContact(data)} />
+        <ContactForm onSubmit={data => handleAddContact(data)} />
 
         <Title>Contacts</Title>
 
@@ -81,6 +82,17 @@ const App = () => {
       </div>
     </div>
   );
-}
+};
+
+App.propTypes = {
+  contacts: PropTypes.arrayOf(
+    PropTypes.shape({
+      id: PropTypes.string.isRequired,
+      name: PropTypes.string.isRequired,
+      number: PropTypes.string.isRequired,
+    })
+  ),
+  filter: PropTypes.string,
+};
 
 export default App;

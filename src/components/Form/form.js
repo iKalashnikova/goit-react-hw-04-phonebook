@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from 'react';
+import PropTypes from 'prop-types';
 import { FormEl, LabelEl, InputContact, InputSubmit } from './Form.styled';
 
 const ContactForm = ({ onSubmit }) => {
   const [name, setIsName] = useState('');
   const [number, setIsNumber] = useState('');
-   const [shouldReset, setIsShouldReset] = useState(false);
+  const [shouldReset, setIsShouldReset] = useState(false);
 
   const handleInputСhange = event => {
     const { name, value } = event.target;
@@ -63,6 +64,11 @@ const ContactForm = ({ onSubmit }) => {
       <InputSubmit type="submit"> Add contact</InputSubmit>
     </FormEl>
   );
+    
 };
+
+ContactForm.propTypes = {
+  onSubmit: PropTypes.func.isRequired,
+}
 
 export default ContactForm;
